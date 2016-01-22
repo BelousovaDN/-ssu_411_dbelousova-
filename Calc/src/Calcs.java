@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 public class Calcs {
     public static void main(String[] args) throws Exception {
@@ -17,9 +18,9 @@ public class Calcs {
                 if (ss.equals("Close")) {
                     System.out.println("Завершение выполнения программы.");
                 }
-                else{
-                    System.out.println("Ошибка!");
-                }
+               else{
+                   System.out.println("Ошибка!");
+               }
             }
         }
     }
@@ -33,7 +34,11 @@ public class Calcs {
 
             if (checkString(mes[i])) {
                 ssEx.add(mes[i]);
-            } else if (oper(mes[i].charAt(0)) ){
+            }
+          /*  else if ((mes[i] == ".")){
+                steak.add();
+            }*/
+            else if (oper(mes[i].charAt(0)) ){
                 if (steak.size() > 0){
                     while (steak.size()>=1 && (prioritet(mes[i].charAt(0))) < prioritet(steak.get(steak.size()-1).charAt(0))){
                         ssEx.add(steak.get(steak.size()-1));
@@ -71,7 +76,7 @@ public class Calcs {
 
         for (int i=0; i< mes.size(); i++){
             if (checkString(mes.get(i))){
-                steak.add((double) Integer.parseInt(mes.get(i)));
+                steak.add((double)Double.parseDouble(mes.get(i)));
             }
             else {
                 if (steak.size() < 2) {
@@ -91,7 +96,8 @@ public class Calcs {
 
     public static boolean checkString(String string) {
         try {
-            Integer.parseInt(string);
+
+            Double.valueOf(string) ;//.parseInt(string);
         } catch (Exception e) {
             return false;
         }
@@ -135,8 +141,11 @@ public class Calcs {
             case('*'): res = a*b; break;
             case('/'): res = a/b; break;
             case('^'): res =  Math.pow(a,b); break;
+
         }
       return res;
 
     }
+
+
 }
